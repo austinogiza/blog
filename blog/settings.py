@@ -14,7 +14,7 @@ SECRET_KEY = 'omqf$0v9rskh%s2uegh098b_n^#+fjs9g)l-foc%ted3=tiv3^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://tekblogapp.herokuapp.com/", '127.0.0.1']
 
 
 # Application definition
@@ -71,12 +71,8 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
-        "USER": 'root',
-        "PASSWORD": '',
-        "HOST": '',
-        "PORT": ""
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -163,4 +159,3 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'austinogiza@gmail.com'
 EMAIL_HOST_PASSWORD = 'austinforreal1'
-
