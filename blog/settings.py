@@ -1,4 +1,4 @@
-
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -161,3 +161,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'austinogiza@gmail.com'
 EMAIL_HOST_PASSWORD = 'austinforreal1'
+
+
+django_heroku.settings(locals())
