@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% block header %}
+<title>{{object.title}}</title>
+{% endblock %}
+{% block content %}
+
+
+<div class="page-header page-header-small">
+    <div class="page-header-image" style="background-image: url({{object.image.url}});">
+    </div>
+    <div class="content-center">
+        <div class="container">
+            <h1 class="title">{{object.title}}</h1>
+            <h4> Posted {{object.publish_date|timesince}} ago</h4>
+            <h4>Post By {{object.author|upper}} </h4>
+
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container ">
+        <div class="row">
+
+
+
+            <div class="col-8 mx-auto ">
+                <div class="card">
+                    <img class="card-img-top" src="{{object.image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title">{{object.title}}</h4>
+                        <hr />
+
+                        <div class="pt-1">
+                            <p class="card-text">
+                                <span>{{object.publish_date|timesince}}</span>
+                                <span><i class="ml-2 fas fa-eye"></i> {{object.get_view_count }}</span>
+                                <span><i class=" ml-2 now-ui-icons ui-2_like"> {{object.get_like_count }}</i> </span>
+                                <span><i class=" ml-2 now-ui-icons ui-2_chat-round">
+                                        {{object.get_comment_count }}</i></span>
+                            </p>
+                        </div>
+
+                        <hr />
+                        <div class="pt-1">
+                            <p class="card-text">{{object.content}}</p>
+
+                        </div>
+                        <h4>Enjoyed the post?
+                            Leave a like</h4> <br>
+                        <a href="{{object.get_like_url}}"><i class="pt-2 pb-2 now-ui-icons ui-2_like">
+                                {{object.get_like_count }}</i> </a>
+
+
+                        <div class="pt-2">
+                            Leave A Comment
+
+
+                        </div>
+
+                        <hr />
+                        {% if request.user.is_authenticated %}
+                        <div>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{form|crispy}}
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+
+
+                          
+
+                            {% else %}
+
+                            <a href="{% url 'account_login' %}" class="btn btn-primary btn-block">Login To Comment </a>
+                            {% endif %}
+                                            <div>
+                                          
+                                
+
+                            {% for comment in object.comment %}
+
+                            <h5> {{ comment.content }}</h5>
+                            <small> By {{ comment.user|upper }}</small> <br>
+                            <small>{{ comment.time|timesince }} ago</small>
+   {% endfor %}
+  </div> 
+
+                      
+                    </div>
+                    
+        
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
