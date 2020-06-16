@@ -1,5 +1,7 @@
 
+import django_heroku
 import os
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -14,7 +16,7 @@ SECRET_KEY = 'omqf$0v9rskh%s2uegh098b_n^#+fjs9g)l-foc%ted3=tiv3^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://tekblogapp.herokuapp.com/"]
 
 
 # Application definition
@@ -43,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'blog.urls'
@@ -122,8 +125,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
@@ -161,3 +165,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'austinogiza@gmail.com'
 EMAIL_HOST_PASSWORD = 'austinforreal1'
+
+
+django_heroku.settings(locals())
